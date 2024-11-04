@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tinted Background with Dots Effect</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-image: url('background.jpg'); /* Initial background image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
+            position: relative; /* Position to hold overlay */
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* background: rgba(82, 82, 82, 0.2); Tint color with opacity */
+            background-image: url('dots-pattern.png'); /* Replace with your dot pattern image */
+            background-size: 50px 50px; /* Adjust to control dot size */
+            background-repeat: repeat;
+            pointer-events: none; /* Ensure overlay doesn't block interactions */
+            animation: moveDiagonal 10s linear infinite;
+        }
+        @keyframes moveDiagonal {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 20px 20px; /* Adjust to control movement speed/direction */
+            }
+        }
+        .logo {
+            width: 600px; /* Default width */
+            height: auto;
+            transition: opacity 0.3s ease; /* Smooth transition for logo change */
+            z-index: 1; /* Ensure logo is above overlay */
+        }
+        .switch-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 2; /* Ensure button is above overlay */
+        }
+        .switch-button img {
+            width: 40px; /* Icon size */
+            height: 40px;
+        }
+
+        /* Media query for smaller devices */
+        @media (max-width: 768px) {
+            .logo {
+                width: 50%; /* Set the logo to take no more than half the screen width */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <img src="logo.svg" alt="Logo" class="logo" id="logo"> <!-- Initial logo image -->
+    <button class="switch-button" onclick="switchImages()">
+        <img src="icon.png" alt="Switch Icon"> <!-- Button icon -->
+    </button>
+
+    <script>
+        function switchImages() {
+            // Reference to body and logo elements
+            const body = document.body;
+            const logo = document.getElementById('logo');
+
+            // Toggle background image and logo image
+            if (body.style.backgroundImage.includes('background.jpg')) {
+                body.style.backgroundImage = "url('background2.jpg')"; // New background image
+                logo.src = 'logo2.svg'; // New logo image
+            } else {
+                body.style.backgroundImage = "url('background.jpg')"; // Initial background image
+                logo.src = 'logo.svg'; // Initial logo image
+            }
+        }
+    </script>
+</body>
+</html>
