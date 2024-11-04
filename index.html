@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Background Image Transition</title>
+    <title>Background and Logo Color Switcher</title>
     <style>
         body {
             margin: 0;
@@ -15,18 +15,17 @@
             display: flex;
             justify-content: center; /* Center content horizontally */
             align-items: center; /* Center content vertically */
-            transition: background-image 0.2s ease-in-out; /* Smooth transition for background change */
+            transition: background-image 0.2s ease-in-out; /* Faster transition */
         }
         .logo {
             width: 600px; /* Default width */
             height: auto;
-            transition: opacity 0.3s ease; /* Smooth transition for logo change */
+            transition: fill 0.3s ease; /* Smooth transition for color change */
             z-index: 1; /* Ensure logo is above background */
         }
         .switch-button {
             position: absolute;
             top: 20px;
-            right: 20px;
             background: transparent;
             border: none;
             cursor: pointer;
@@ -35,6 +34,12 @@
         .switch-button img {
             width: 50px; /* Icon size */
             height: 50px;
+        }
+        .switch-background {
+            right: 20px;
+        }
+        .switch-logo-color {
+            right: 80px; /* Adjust to place this button next to the first */
         }
 
         /* Media query for smaller devices */
@@ -47,12 +52,15 @@
 </head>
 <body>
     <img src="logo.svg" alt="Logo" class="logo" id="logo"> <!-- Initial logo image -->
-    <button class="switch-button" onclick="switchImages()">
-        <img src="icon.png" alt="Switch Icon"> <!-- Button icon -->
+    <button class="switch-button switch-background" onclick="switchBackground()">
+        <img src="icon.png" alt="Switch Background Icon"> <!-- Button icon -->
+    </button>
+    <button class="switch-button switch-logo-color" onclick="switchLogoColor()">
+        <img src="icon.png" alt="Switch Logo Color Icon"> <!-- Button icon -->
     </button>
 
     <script>
-        function switchImages() {
+        function switchBackground() {
             const body = document.body;
             const logo = document.getElementById('logo');
 
@@ -64,6 +72,45 @@
                 body.style.backgroundImage = "url('background.jpg')"; // Initial background image
                 logo.src = 'logo.svg'; // Initial logo image
             }
+        }
+
+        function switchLogoColor() {
+            const logo = document.getElementById('logo');
+            
+            // Array of 10 vibrant and 10 dark colors
+            const colors = [
+                // Vibrant colors
+                '#FF5733', // Vibrant red-orange
+                '#FFBD33', // Vibrant yellow-orange
+                '#33FF57', // Vibrant green
+                '#33FFBD', // Vibrant teal
+                '#33A1FF', // Vibrant blue
+                '#5733FF', // Vibrant indigo
+                '#BD33FF', // Vibrant purple
+                '#FF33A1', // Vibrant pink
+                '#FF3385', // Vibrant rose
+                '#FFD133', // Vibrant golden
+
+                // Dark colors
+                '#7F1D1D', // Dark red
+                '#5D4037', // Dark brown
+                '#3E2723', // Dark chocolate
+                '#1B5E20', // Dark green
+                '#004D40', // Dark teal
+                '#0D47A1', // Dark blue
+                '#311B92', // Dark indigo
+                '#4A148C', // Dark purple
+                '#880E4F', // Dark magenta
+                '#3E2723'  // Dark maroon
+            ];
+
+            // Get the current color or default to the first color in the array
+            const currentColor = logo.getAttribute('fill') || colors[0];
+
+            // Find the index of the current color and get the next color in the array
+            let currentIndex = colors.indexOf(currentColor);
+            currentIndex = (currentIndex + 1) % colors.length; // Cycle through the colors
+            logo.setAttribute('fill', colors[currentIndex]); // Set new color
         }
     </script>
 </body>
