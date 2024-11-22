@@ -3,115 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Background and Logo Color Switcher</title>
+    <title>Centered Logo Page</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap');
+
         body {
             margin: 0;
             height: 100vh;
-            background-image: url('background.jpg'); /* Initial background image */
+            background-image: url('background.jpg'); /* Replace with your image URL */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             display: flex;
-            justify-content: center; /* Center content horizontally */
-            align-items: center; /* Center content vertically */
-            transition: background-image 0.2s ease-in-out; /* Faster transition */
-        }
-        .logo {
-            width: 600px; /* Default width */
-            height: auto;
-            transition: fill 0.3s ease; /* Smooth transition for color change */
-            z-index: 1; /* Ensure logo is above background */
-        }
-        .switch-button {
-            position: absolute;
-            top: 20px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            z-index: 2; /* Ensure button is above background */
-        }
-        .switch-button img {
-            width: 50px; /* Icon size */
-            height: 50px;
-        }
-        .switch-background {
-            right: 20px;
-        }
-        .switch-logo-color {
-            right: 80px; /* Adjust to place this button next to the first */
+            flex-direction: column; /* Stack elements vertically */
+            justify-content: center; /* Center content vertically */
+            align-items: center; /* Center content horizontally */
         }
 
-        /* Media query for smaller devices */
+        .logo {
+            width: 50vw; /* Set width based on viewport size */
+            max-width: 600px; /* Cap the size for larger screens */
+            height: auto; /* Maintain proportional scaling */
+        }
+
+        .text {
+            font-family: 'Major Mono Display', monospace; /* Apply Major Mono Display font */
+            font-size: 1rem; /* Adjust font size */
+            color: white; /* Adjust text color based on your background */
+            margin-top: 20px; /* Space between logo and text */
+            text-align: center; /* Center the text horizontally */
+        }
+
         @media (max-width: 768px) {
+            body {
+                justify-content: center; /* Center the content vertically for mobile */
+            }
+
             .logo {
-                width: 50%; /* Set the logo to take no more than half the screen width */
+                width: 70vw; /* Increase logo size slightly for mobile */
+            }
+
+            .text {
+                font-size: 1.5rem; /* Adjust text size for smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                width: 80vw; /* Further increase the logo size for small devices */
+            }
+
+            .text {
+                font-size: 1.2rem; /* Adjust text size for very small screens */
             }
         }
     </style>
 </head>
 <body>
-    <img src="logo.svg" alt="Logo" class="logo" id="logo"> <!-- Initial logo image -->
-    <button class="switch-button switch-background" onclick="switchBackground()">
-        <img src="icon.png" alt="Switch Background Icon"> <!-- Button icon -->
-    </button>
-    <button class="switch-button switch-logo-color" onclick="switchLogoColor()">
-        <img src="icon.png" alt="Switch Logo Color Icon"> <!-- Button icon -->
-    </button>
-
-    <script>
-        function switchBackground() {
-            const body = document.body;
-            const logo = document.getElementById('logo');
-
-            // Check current background and switch
-            if (body.style.backgroundImage.includes('background.jpg')) {
-                body.style.backgroundImage = "url('background2.jpg')"; // New background image
-                logo.src = 'logo2.svg'; // New logo image
-            } else {
-                body.style.backgroundImage = "url('background.jpg')"; // Initial background image
-                logo.src = 'logo.svg'; // Initial logo image
-            }
-        }
-
-        function switchLogoColor() {
-            const logo = document.getElementById('logo');
-            
-            // Array of 10 vibrant and 10 dark colors
-            const colors = [
-                // Vibrant colors
-                '#FF5733', // Vibrant red-orange
-                '#FFBD33', // Vibrant yellow-orange
-                '#33FF57', // Vibrant green
-                '#33FFBD', // Vibrant teal
-                '#33A1FF', // Vibrant blue
-                '#5733FF', // Vibrant indigo
-                '#BD33FF', // Vibrant purple
-                '#FF33A1', // Vibrant pink
-                '#FF3385', // Vibrant rose
-                '#FFD133', // Vibrant golden
-
-                // Dark colors
-                '#7F1D1D', // Dark red
-                '#5D4037', // Dark brown
-                '#3E2723', // Dark chocolate
-                '#1B5E20', // Dark green
-                '#004D40', // Dark teal
-                '#0D47A1', // Dark blue
-                '#311B92', // Dark indigo
-                '#4A148C', // Dark purple
-                '#880E4F', // Dark magenta
-                '#3E2723'  // Dark maroon
-            ];
-
-            // Get the current color or default to the first color in the array
-            const currentColor = logo.getAttribute('fill') || colors[0];
-
-            // Find the index of the current color and get the next color in the array
-            let currentIndex = colors.indexOf(currentColor);
-            currentIndex = (currentIndex + 1) % colors.length; // Cycle through the colors
-            logo.setAttribute('fill', colors[currentIndex]); // Set new color
-        }
-    </script>
+    <img src="logo.svg" alt="Logo" class="logo"> <!-- Replace with your logo image URL -->
+    <div class="text">SEE YOU SOON</div> <!-- Text under the logo -->
 </body>
 </html>
